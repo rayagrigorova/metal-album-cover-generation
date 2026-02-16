@@ -45,7 +45,7 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 - `reports/` — documentation PDF + presentation
 - `lora/` — LoRA weights + training metadata
 
-- ### `results/` structure
+### `results/` structure
 Curated outputs and evaluation artifacts:
 
 - `results/gen_baseline/` — baseline SD generations with simple hand-written prompts (sanity-check samples)
