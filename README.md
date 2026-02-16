@@ -25,7 +25,7 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 
 ## Method (high level)
 1. **Data merge and filtering** (band/album normalization; keep albums with cover + genre + lyrics).
-2. **EDA** (balance checks, simple visual features, CLIP embeddings for projections andclustering).
+2. **EDA** (balance checks, simple visual features, CLIP embeddings for projections and clustering).
 3. **Lyrics preprocessing + TF–IDF** (clean and extract motifs for L/GL modes).
 4. **Captioning** with *Florence-2-base* (with anti-cheat crop + re-caption).
 5. **Prompt builder** for G/L/GL/C/GC/GLC/P.
@@ -33,13 +33,13 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 7. **LoRA training** on real metal covers and sanity checks.
 8. **Paired generation** (baseline vs LoRA) across modes with matched seeds.
 9. **Base SD vs LoRA evaluation**
-   - **Text–image alignment (CLIP):** compute cosine similarity between each **prompt** and its generated image embedding, then aggregate **per mode** (G/L/GL/C/GC/GLC/…) and **per genre**.
-   - **Zero-shot genre probe (CLIP):** classify each generated image as **death vs thrash** by comparing its CLIP embedding to two text prompts (e.g., “death metal album cover” vs “thrash metal album cover”) and report accuracy/bias patterns per mode/model.
-   - **Realism via nearest real cover (kNN in CLIP space):** for every generated image, find the **closest real album cover** embedding and record the **minimum cosine distance**; lower is better. Report averages per mode for **baseline vs LoRA**.
-   - **Style coverage (distribution plots):** project CLIP embeddings (e.g., PCA) and visually compare the **real** cover distribution to **baseline** and **LoRA** generations to see how well they cover the domain.
+    - **Text–image alignment (CLIP):** compute cosine similarity between each prompt and its generated image embedding, then aggregate per mode (G/L/GL/C/GC/GLC/…) and per genre.
+    - **Zero-shot genre probe (CLIP):** classify each generated image as death vs thrash by comparing its CLIP embedding to two genre text prompts and report accuracy/bias patterns per mode and per model.
+    - **Realism via nearest real cover (kNN in CLIP space):** for every generated image, find the closest real album cover embedding and record the minimum cosine distance (lower is better). Report averages per mode for baseline vs LoRA.
+    - **Style coverage (distribution plots):** project CLIP embeddings (e.g., PCA) and visually compare real, baseline, and LoRA distributions to assess domain coverage.
 10. **Neural Style Transfer (NST) experiment**
-   - Apply Gatys-style NST to **baseline SD** generations (content) using a **random real cover from the same genre** as the style reference.
-   - Save both the original baseline outputs and the stylized results; changes were minor, so NST is treated as an exploratory add-on rather than a main baseline.
+    - Apply Gatys-style NST to baseline SD generations (content) using a random real cover from the same genre as the style reference.
+    - Save both baseline and stylized outputs; visual changes were minor, so NST is treated as exploratory rather than a competitive baseline.
 
 ## Results
 - Example generations and comparisons are in `results/`.
