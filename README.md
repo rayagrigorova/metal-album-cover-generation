@@ -6,8 +6,6 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 
 # Visual Results
 
----
-
 ## 1. Simple Handwritten Prompts (Baseline and LoRA)
 
 ### Death Metal – Simple Handwritten Prompt
