@@ -118,9 +118,10 @@ Below are representative examples from different prompt modes (seed = 0).
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0007_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0007_s0.png" width="350"> |
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0008_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0008_s0.png" width="350"> |
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0042_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0042_s0.png" width="350"> |
-| <img src="results/eval_base_vs_lora/images/base/GLC/a0020_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0020_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0072_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0072_s0.png" width="350"> |
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0036_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0036_s0.png" width="350"> |
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0073_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0073_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0064_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0064_s0.png" width="350"> |
 
 ## Goals
 - Build a “master” dataset linking **cover + band + album + subgenre + lyrics**.
