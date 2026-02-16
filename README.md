@@ -14,7 +14,7 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
   - **GC**: metadata + caption
   - **GLC**: metadata + lyrics summary + caption
   - **P**: additional prompt variants
-- Train a **LoRA adapter** on real metal cover art to inject domain aesthetics.
+- Train a **LoRA adapter** on real metal cover art to inject domain-specific aesthetics.
 - Compare **baseline vs LoRA** generations using matched seeds.
 - Evaluate with: **CLIP text–image similarity**, **zero-shot genre probe**, **kNN distance in CLIP space**, and **distribution coverage**.
 - Quick **NST** post-processing experiment (visually minor effect; not pursued further).
@@ -24,16 +24,22 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 - Metal Albums Artwork: https://www.kaggle.com/datasets/benjamnmachn/metal-albums-artwork
 
 ## Method (high level)
-1. **Data merge & filtering** (band/album normalization; keep albums with cover + genre + lyrics).
-2. **EDA** (balance checks, simple visual features, CLIP embeddings for projections/clustering).
-3. **Lyrics preprocessing + TF–IDF** (clean + extract motifs for L/GL modes).
+1. **Data merge and filtering** (band/album normalization; keep albums with cover + genre + lyrics).
+2. **EDA** (balance checks, simple visual features, CLIP embeddings for projections andclustering).
+3. **Lyrics preprocessing + TF–IDF** (clean and extract motifs for L/GL modes).
 4. **Captioning** with *Florence-2-base* (with anti-cheat crop + re-caption).
 5. **Prompt builder** for G/L/GL/C/GC/GLC/P.
 6. **Baseline generation** (Stable Diffusion v1.5).
 7. **LoRA training** on real metal covers and sanity checks.
 8. **Paired generation** (baseline vs LoRA) across modes with matched seeds.
-9. **Evaluation** (CLIP alignment, zero-shot genre, kNN realism, coverage plots).
-10. **NST experiment** (optional baseline; negligible visual change).
+9. **Base SD vs LoRA evaluation**
+   - **Text–image alignment (CLIP):** compute cosine similarity between each **prompt** and its generated image embedding, then aggregate **per mode** (G/L/GL/C/GC/GLC/…) and **per genre**.
+   - **Zero-shot genre probe (CLIP):** classify each generated image as **death vs thrash** by comparing its CLIP embedding to two text prompts (e.g., “death metal album cover” vs “thrash metal album cover”) and report accuracy/bias patterns per mode/model.
+   - **Realism via nearest real cover (kNN in CLIP space):** for every generated image, find the **closest real album cover** embedding and record the **minimum cosine distance**; lower is better. Report averages per mode for **baseline vs LoRA**.
+   - **Style coverage (distribution plots):** project CLIP embeddings (e.g., PCA) and visually compare the **real** cover distribution to **baseline** and **LoRA** generations to see how well they cover the domain.
+10. **Neural Style Transfer (NST) experiment**
+   - Apply Gatys-style NST to **baseline SD** generations (content) using a **random real cover from the same genre** as the style reference.
+   - Save both the original baseline outputs and the stylized results; changes were minor, so NST is treated as an exploratory add-on rather than a main baseline.
 
 ## Results
 - Example generations and comparisons are in `results/`.
@@ -42,33 +48,41 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 ## Repository
 - `metal-album-cover-generation.ipynb` — full pipeline (data → prompts → generation → evaluation)
 - `results/` — curated samples (baseline, modes, LoRA vs baseline)
-- `reports/` — documentation PDF + presentation
-- `lora/` — LoRA weights + training metadata
+- `reports/` — documentation and presentation
+- `lora/` — LoRA weights and training metadata
 
 ### `results/` structure
 Curated outputs and evaluation artifacts:
 
-- `results/gen_baseline/` — baseline SD generations with simple hand-written prompts (sanity-check samples)
-- `results/gen_baseline_6modes/` — baseline generations across the 6 prompt modes (**G/L/GL/C/GC/GLC**)
-- `results/gen_lora/` — LoRA-adapted SD generations (same pipeline, LoRA enabled)
-- `results/eval_base_vs_lora/` — plots/tables/aggregates comparing baseline vs LoRA (CLIP metrics, kNN distance, coverage)
-- `results/exp_sd_styletransfer/` — NST experiment outputs (baseline SD as content + random same-genre real covers as style)
+- `results/gen_baseline/` — baseline Stable Diffusion generations with simple hand-written prompts (sanity check)
+- `results/gen_lora/` — LoRA-adapted Stable Diffusion generations with simple hand-written prompts (same pipeline as above, LoRA enabled)
+- `results/gen_baseline_6modes/` — baseline Stable Diffusion generations across the 6 prompt modes (**G/L/GL/C/GC/GLC**)
+- `results/eval_base_vs_lora/` — paired generation for **baseline vs LoRA** (same albums, modes and seeds)
+  - `images/` — generated images organized by model and mode:
+    - `images/base/<MODE>/` — baseline SD outputs per mode (G/L/GL/C/GC/GLC/…)
+    - `images/lora/<MODE>/` — LoRA-adapted outputs per mode (G/L/GL/C/GC/GLC/…)
+  - `sanity/` — sanity-check set (2 albums × 2 models × all modes), used to validate the pipeline
+  - `eval_records.jsonl` — raw per-sample records (album metadata + mode + seed + prompt + paths to base/lora images)
+  - `eval_records_clean.jsonl` — cleaned records (black/censored generations removed by safety filtering)
+  - `dropped_black_records.csv` — list of removed “black” (censored) samples
+  - `run_config.json` — evaluation run configuration (steps, guidance, resolution, seeds, model id, LoRA dir, etc.)
+- `results/exp_sd_styletransfer/` — Neural Style Transfer (NST) experiment outputs
+  - `generated_base/` — baseline Stable Diffusion generations used as **content** images for NST
+  - `generated_stylized/` — NST results (stylized outputs) produced using **same-genre real covers** as style references
 - `results/florence_captions.json` — cached Florence-2-base captions used in **C/GC/GLC**
-- `results/exp_sd_styletransfer-20260216T115808Z-1-001.zip` — archived NST outputs bundle
 
 ### `lora/` structure
 LoRA training artifacts:
 
 - `lora/pytorch_lora_weights.safetensors` — trained LoRA adapter weights
-- `lora/metadata.jsonl` — training metadata (image paths + captions/prompts) for reproducibility
+- `lora/metadata.jsonl` — training metadata (image paths and prompts) for reproducibility
 
 ### `reports/` structure
 Project documents:
 
 - `reports/documentation.doc` — full write-up
-- `reports/presentation.pptx` — final slides
-- `reports/project_idea.pdf` — initial proposal
-
+- `reports/presentation.pptx` — presentation slides
+- `reports/project_idea.pdf` — initial project idea
 
 ## Reproducibility
 Install dependencies and run the notebook end-to-end. Data download/paths are described inside the notebook (Kaggle sources above).
