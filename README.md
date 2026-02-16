@@ -1,8 +1,94 @@
 # Genre-aware Metal Album Cover Generation (Diffusion + LoRA)
 
+![Stable Diffusion generation](results/figures/fig_03_clip_pca.png)
+
 ## Overview
 This project explores genre-aware generation of metal album covers.  
 A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to metal aesthetics via LoRA and evaluated with lightweight multimodal metrics (CLIP-based).
+
+# Visual Results
+
+---
+
+## 1. Simple Handwritten Prompts (Baseline vs LoRA)
+
+### Death Metal – Simple Prompt
+
+| Baseline Stable Diffusion | LoRA-adapted |
+|---------------------------|--------------|
+| <img src="results/gen_baseline/death_00.png" width="350"> | <img src="results/gen_lora/lora_000.png" width="350"> |
+
+### Thrash Metal – Simple Prompt
+
+| Baseline Stable Diffusion | LoRA-adapted |
+|---------------------------|--------------|
+| <img src="results/gen_baseline/thrash_00.png" width="350"> | <img src="results/gen_lora/lora_001.png" width="350"> |
+
+---
+
+## 2. Prompt Mode Examples (Mixed Baseline & LoRA Samples)
+
+Below are representative examples from different prompt modes (seed = 0).
+
+### G Mode (Genre + Metadata)
+
+<img src="results/eval_base_vs_lora/images/base/G/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/G/a0089_s0.png" width="350">
+
+---
+
+### GL Mode (Genre + Lyrics)
+
+<img src="results/eval_base_vs_lora/images/base/GL/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/GL/a0089_s0.png" width="350">
+
+---
+
+### C Mode (Caption-based)
+
+<img src="results/eval_base_vs_lora/images/base/C/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/C/a0089_s0.png" width="350">
+
+---
+
+### GLC Mode (Genre + Lyrics + Caption)
+
+<img src="results/eval_base_vs_lora/images/base/GLC/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/GLC/a0089_s0.png" width="350">
+
+---
+
+## 3. Direct Baseline vs LoRA Comparison (Per Mode)
+
+### G Mode
+
+| Baseline | LoRA |
+|----------|------|
+| <img src="results/eval_base_vs_lora/images/base/G/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/G/a0089_s0.png" width="350"> |
+
+---
+
+### GL Mode
+
+| Baseline | LoRA |
+|----------|------|
+| <img src="results/eval_base_vs_lora/images/base/GL/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GL/a0089_s0.png" width="350"> |
+
+---
+
+### C Mode
+
+| Baseline | LoRA |
+|----------|------|
+| <img src="results/eval_base_vs_lora/images/base/C/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/C/a0089_s0.png" width="350"> |
+
+---
+
+### GLC Mode
+
+| Baseline | LoRA |
+|----------|------|
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0089_s0.png" width="350"> |
 
 ## Goals
 - Build a “master” dataset linking **cover + band + album + subgenre + lyrics**.
@@ -86,3 +172,5 @@ Project documents:
 
 ## Reproducibility
 Install dependencies and run the notebook end-to-end. Data download/paths are described inside the notebook (Kaggle sources above).
+
+
