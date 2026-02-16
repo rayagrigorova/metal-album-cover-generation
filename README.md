@@ -15,12 +15,12 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 ### Death Metal – Simple Handwritten Prompt
 
 <img src="results/gen_baseline/death_01.png" width="350">
-<img src="results/gen_lora/lora_001" width="350">
+<img src="results/gen_lora/lora_001.png" width="350">
 
 ### Thrash Metal – Simple Handwritten Prompt
 
 <img src="results/gen_baseline/thrash_01.png" width="350">
-<img src="results/gen_lora/lora_005" width="350">
+<img src="results/gen_lora/lora_005.png" width="350">
 
 ---
 
