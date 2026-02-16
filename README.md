@@ -10,51 +10,57 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
 
 ---
 
-## 1. Simple Handwritten Prompts (Baseline vs LoRA)
+## 1. Simple Handwritten Prompts (Baseline and LoRA)
 
-### Death Metal – Simple Prompt
+### Death Metal – Simple Handwritten Prompt
 
-| Baseline Stable Diffusion | LoRA-adapted |
-|---------------------------|--------------|
-| <img src="results/gen_baseline/death_00.png" width="350"> | <img src="results/gen_lora/lora_000.png" width="350"> |
+<img src="results/gen_baseline/death_01.png" width="350">
+<img src="results/gen_lora/lora_001" width="350">
 
-### Thrash Metal – Simple Prompt
+### Thrash Metal – Simple Handwritten Prompt
 
-| Baseline Stable Diffusion | LoRA-adapted |
-|---------------------------|--------------|
-| <img src="results/gen_baseline/thrash_00.png" width="350"> | <img src="results/gen_lora/lora_001.png" width="350"> |
+<img src="results/gen_baseline/thrash_01.png" width="350">
+<img src="results/gen_lora/lora_005" width="350">
 
 ---
 
-## 2. Prompt Mode Examples (Mixed Baseline & LoRA Samples)
+## 2. Prompt Mode Examples (Mixed Baseline and LoRA Samples)
 
 Below are representative examples from different prompt modes (seed = 0).
 
 ### G Mode (Genre + Metadata)
 
-<img src="results/eval_base_vs_lora/images/base/G/a0089_s0.png" width="350">
-<img src="results/eval_base_vs_lora/images/lora/G/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/G/a0099_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/G/a0091_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/G/a0057_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/G/a0035_s0.png" width="350">
 
 ---
 
 ### GL Mode (Genre + Lyrics)
 
-<img src="results/eval_base_vs_lora/images/base/GL/a0089_s0.png" width="350">
-<img src="results/eval_base_vs_lora/images/lora/GL/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/GL/a0007_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/GL/a0002_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/GL/a0095_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/GL/a0062_s0.png" width="350">
 
 ---
 
 ### C Mode (Caption-based)
 
-<img src="results/eval_base_vs_lora/images/base/C/a0089_s0.png" width="350">
-<img src="results/eval_base_vs_lora/images/lora/C/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/C/a0080_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/C/a0070_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/C/a0095_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/C/a0007_s0.png" width="350">
 
 ---
 
 ### GLC Mode (Genre + Lyrics + Caption)
 
-<img src="results/eval_base_vs_lora/images/base/GLC/a0089_s0.png" width="350">
-<img src="results/eval_base_vs_lora/images/lora/GLC/a0089_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/GLC/a0035_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/base/GLC/a0022_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/GLC/a0017_s0.png" width="350">
+<img src="results/eval_base_vs_lora/images/lora/GLC/a0070_s0.png" width="350">
 
 ---
 
@@ -64,7 +70,17 @@ Below are representative examples from different prompt modes (seed = 0).
 
 | Baseline | LoRA |
 |----------|------|
-| <img src="results/eval_base_vs_lora/images/base/G/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/G/a0089_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/G/a0005_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/G/a0005_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/G/a0045_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/G/a0045_s0.png" width="350"> |
+
+---
+
+### L Mode
+
+| Baseline | LoRA |
+|----------|------|
+| <img src="results/eval_base_vs_lora/images/base/L/a0026_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/L/a0026_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/L/a0035_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/L/a0035_s0.png" width="350"> |
 
 ---
 
@@ -72,7 +88,8 @@ Below are representative examples from different prompt modes (seed = 0).
 
 | Baseline | LoRA |
 |----------|------|
-| <img src="results/eval_base_vs_lora/images/base/GL/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GL/a0089_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GL/a0005_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GL/a0005_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GL/a0075_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GL/a0075_s0.png" width="350"> |
 
 ---
 
@@ -80,7 +97,17 @@ Below are representative examples from different prompt modes (seed = 0).
 
 | Baseline | LoRA |
 |----------|------|
-| <img src="results/eval_base_vs_lora/images/base/C/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/C/a0089_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/C/a0051_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/C/a0051_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/C/a0011_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/C/a0011_s0.png" width="350"> |
+
+---
+
+### GC Mode
+
+| Baseline | LoRA |
+|----------|------|
+| <img src="results/eval_base_vs_lora/images/base/GC/a0011_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GC/a0011_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GC/a0095_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GC/a0095_s0.png" width="350"> |
 
 ---
 
@@ -88,7 +115,10 @@ Below are representative examples from different prompt modes (seed = 0).
 
 | Baseline | LoRA |
 |----------|------|
-| <img src="results/eval_base_vs_lora/images/base/GLC/a0089_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0089_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0001_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0001_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0096_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0096_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0007_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0007_s0.png" width="350"> |
+| <img src="results/eval_base_vs_lora/images/base/GLC/a0008_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0008_s0.png" width="350"> |
 
 ## Goals
 - Build a “master” dataset linking **cover + band + album + subgenre + lyrics**.
