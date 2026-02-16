@@ -1,7 +1,5 @@
 # Genre-aware Metal Album Cover Generation (Diffusion + LoRA)
 
-![Stable Diffusion generation](results/figures/fig_03_clip_pca.png)
-
 ## Overview
 This project explores genre-aware generation of metal album covers.  
 A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to metal aesthetics via LoRA and evaluated with lightweight multimodal metrics (CLIP-based).
