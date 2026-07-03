@@ -10,7 +10,7 @@ A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to
   - **G**: genre + band + album (metadata-only)
   - **L**: lyrics-summary-only
   - **GL**: metadata + lyrics summary
-  - **C**: Florence caption
+  - **C**: Florence-2-base caption
   - **GC**: metadata + caption
   - **GLC**: metadata + lyrics summary + caption
   - **P**: additional prompt variants
