@@ -4,6 +4,43 @@
 This project explores genre-aware generation of metal album covers.  
 A pretrained text-to-image diffusion model (Stable Diffusion v1.5) is adapted to metal aesthetics via LoRA and evaluated with lightweight multimodal metrics (CLIP-based).
 
+## Goals
+- Build a “master” dataset linking **cover + band + album + subgenre + lyrics**.
+- Generate covers under multiple prompt modes:
+  - **G**: genre + band + album (metadata-only)
+  - **L**: lyrics-summary-only
+  - **GL**: metadata + lyrics summary
+  - **C**: Florence caption
+  - **GC**: metadata + caption
+  - **GLC**: metadata + lyrics summary + caption
+  - **P**: additional prompt variants
+- Train a **LoRA adapter** on real metal cover art to inject domain-specific aesthetics.
+- Compare **baseline vs LoRA** generations using matched seeds.
+- Evaluate with: **CLIP text–image similarity**, **zero-shot genre probe**, **kNN distance in CLIP space**, and **distribution coverage**.
+- Quick **NST** post-processing experiment (visually minor effect; not pursued further).
+
+## Datasets (Kaggle)
+- Large Metal Lyrics Archive (228K songs): https://www.kaggle.com/datasets/markkorvin/large-metal-lyrics-archive-228k-songs
+- Metal Albums Artwork: https://www.kaggle.com/datasets/benjamnmachn/metal-albums-artwork
+
+## Method (high level)
+1. **Data merge and filtering** (band/album normalization; keep albums with cover + genre + lyrics).
+2. **EDA** (balance checks, simple visual features, CLIP embeddings for projections and clustering).
+3. **Lyrics preprocessing + TF–IDF** (clean and extract motifs for L/GL modes).
+4. **Captioning** with *Florence-2-base* (with anti-cheat crop + re-caption).
+5. **Prompt builder** for G/L/GL/C/GC/GLC/P.
+6. **Baseline generation** (Stable Diffusion v1.5).
+7. **LoRA training** on real metal covers and sanity checks.
+8. **Paired generation** (baseline vs LoRA) across modes with matched seeds.
+9. **Base SD vs LoRA evaluation**
+    - **Text–image alignment (CLIP):** compute cosine similarity between each prompt and its generated image embedding, then aggregate per mode (G/L/GL/C/GC/GLC/…) and per genre.
+    - **Zero-shot genre probe (CLIP):** classify each generated image as death vs thrash by comparing its CLIP embedding to two genre text prompts and report accuracy/bias patterns per mode and per model.
+    - **Realism via nearest real cover (kNN in CLIP space):** for every generated image, find the closest real album cover embedding and record the minimum cosine distance (lower is better). Report averages per mode for baseline vs LoRA.
+    - **Style coverage (distribution plots):** project CLIP embeddings (e.g., PCA) and visually compare real, baseline, and LoRA distributions to assess domain coverage.
+10. **Neural Style Transfer (NST) experiment**
+    - Apply Gatys-style NST to baseline SD generations (content) using a random real cover from the same genre as the style reference.
+    - Save both baseline and stylized outputs; visual changes were minor, so NST is treated as exploratory rather than a competitive baseline.
+
 # Visual Results
 
 ## 1. Simple Handwritten Prompts (Baseline and LoRA)
@@ -120,43 +157,6 @@ Below are representative examples from different prompt modes (seed = 0).
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0036_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0036_s0.png" width="350"> |
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0073_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0073_s0.png" width="350"> |
 | <img src="results/eval_base_vs_lora/images/base/GLC/a0064_s0.png" width="350"> | <img src="results/eval_base_vs_lora/images/lora/GLC/a0064_s0.png" width="350"> |
-
-## Goals
-- Build a “master” dataset linking **cover + band + album + subgenre + lyrics**.
-- Generate covers under multiple prompt modes:
-  - **G**: genre + band + album (metadata-only)
-  - **L**: lyrics-summary-only
-  - **GL**: metadata + lyrics summary
-  - **C**: Florence caption
-  - **GC**: metadata + caption
-  - **GLC**: metadata + lyrics summary + caption
-  - **P**: additional prompt variants
-- Train a **LoRA adapter** on real metal cover art to inject domain-specific aesthetics.
-- Compare **baseline vs LoRA** generations using matched seeds.
-- Evaluate with: **CLIP text–image similarity**, **zero-shot genre probe**, **kNN distance in CLIP space**, and **distribution coverage**.
-- Quick **NST** post-processing experiment (visually minor effect; not pursued further).
-
-## Datasets (Kaggle)
-- Large Metal Lyrics Archive (228K songs): https://www.kaggle.com/datasets/markkorvin/large-metal-lyrics-archive-228k-songs
-- Metal Albums Artwork: https://www.kaggle.com/datasets/benjamnmachn/metal-albums-artwork
-
-## Method (high level)
-1. **Data merge and filtering** (band/album normalization; keep albums with cover + genre + lyrics).
-2. **EDA** (balance checks, simple visual features, CLIP embeddings for projections and clustering).
-3. **Lyrics preprocessing + TF–IDF** (clean and extract motifs for L/GL modes).
-4. **Captioning** with *Florence-2-base* (with anti-cheat crop + re-caption).
-5. **Prompt builder** for G/L/GL/C/GC/GLC/P.
-6. **Baseline generation** (Stable Diffusion v1.5).
-7. **LoRA training** on real metal covers and sanity checks.
-8. **Paired generation** (baseline vs LoRA) across modes with matched seeds.
-9. **Base SD vs LoRA evaluation**
-    - **Text–image alignment (CLIP):** compute cosine similarity between each prompt and its generated image embedding, then aggregate per mode (G/L/GL/C/GC/GLC/…) and per genre.
-    - **Zero-shot genre probe (CLIP):** classify each generated image as death vs thrash by comparing its CLIP embedding to two genre text prompts and report accuracy/bias patterns per mode and per model.
-    - **Realism via nearest real cover (kNN in CLIP space):** for every generated image, find the closest real album cover embedding and record the minimum cosine distance (lower is better). Report averages per mode for baseline vs LoRA.
-    - **Style coverage (distribution plots):** project CLIP embeddings (e.g., PCA) and visually compare real, baseline, and LoRA distributions to assess domain coverage.
-10. **Neural Style Transfer (NST) experiment**
-    - Apply Gatys-style NST to baseline SD generations (content) using a random real cover from the same genre as the style reference.
-    - Save both baseline and stylized outputs; visual changes were minor, so NST is treated as exploratory rather than a competitive baseline.
 
 ## Results
 - Example generations and comparisons are in `results/`.
